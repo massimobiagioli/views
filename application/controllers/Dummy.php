@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Dummy extends CI_Controller {
+class Dummy extends MY_Controller {
     
     public function index() {
         if (!$this->agent->is_mobile()) {
@@ -12,7 +12,14 @@ class Dummy extends CI_Controller {
     }
     
     public function dummy_content() {
-        echo "qwerty123";
+        $this->load->helper('demo');
+        
+        // test cache
+        $dummyobj = array('x', 'y', 'z');
+        $this->cache->save('dummy', $dummyobj);
+        $read = $this->cache->get('dummy');
+        
+        echo "qwerty123 " . demo() . ' ' . print_r($read, true);
     }
     
 }
